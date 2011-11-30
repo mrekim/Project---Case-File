@@ -5,6 +5,8 @@
 package mygame.internal;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mygame.base.Case;
 import mygame.base.Page;
 import org.xml.sax.Attributes;
@@ -22,6 +24,7 @@ public class CaseXMLHandler implements ContentHandler {
     private Page page;
     private ArrayList<Page> pages = new ArrayList<Page>();
     
+    static final Logger logger = Logger.getLogger(CaseXMLHandler.class.getName());
     // Blubb!
     public void characters(char[] ch, int start, int length) throws SAXException {
         currentValue = new String(ch, start, length);
@@ -31,42 +34,42 @@ public class CaseXMLHandler implements ContentHandler {
     // Start
     public void startDocument() throws SAXException {
         // todo : /
-        System.out.println("Opening Case XML - Start parsing");
+        logger.log(Level.INFO, "Opening Case XML - Start parsing");
     }
 
     public void endDocument() throws SAXException {
         // todo : consolidate objects to case
-        System.out.println("Finished parsing Case XML");
+        logger.log(Level.INFO, "Finished parsing Case XML");
     }
     // End
     /////////
 
     // Classes
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
-       System.out.println("Start Element : "+ localName);
+       logger.log(Level.INFO, "Start Element : {0}", localName);
        if (localName.equals("Case"))
        {
-           System.out.println("Found new case - creating instance");
+           logger.log(Level.INFO, "Found new case - creating instance");
            thisCase = new Case();
        }
        
        if (localName.equals("Page"))
        {
-           System.out.println("Found new page - creating instance");
+           logger.log(Level.INFO, "Found new page - creating instance");
            page = new Page();
            page.setId(Integer.parseInt(atts.getValue("id")));
        }
        
        if(localName.equals("Picture"))
        {
-           System.out.println("Found new Image - creating instance");
-           System.out.println("Todo");
+           logger.log(Level.INFO, "Found new Image - creating instance");
+           //todo
        }
     }
 
     // Elements
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        System.out.println("End Element : " + localName + ":" + currentValue );
+        logger.log(Level.INFO, "End Element : {0}:{1}", new Object[]{localName, currentValue});
         
         //Case class 
         if(localName.equals("Title"))

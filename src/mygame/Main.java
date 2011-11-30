@@ -17,9 +17,12 @@ import mygame.internal.ReadXML;
  * @author normenhansen
  */
 public class Main extends SimpleApplication {
+    
+    
 
     public static void main(String[] args) {
         Main app = new Main();
+        Logger.getLogger(Main.class.getName()).log(Level.INFO, "Gogogo");
         app.start();
     }
 
@@ -37,6 +40,7 @@ public class Main extends SimpleApplication {
             new ReadXML().Parse();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
